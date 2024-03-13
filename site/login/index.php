@@ -37,6 +37,9 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                     <span class="invalid-feedback"">Password errata</span>
                 </div>
                 <button class="btn btn-primary" type="submit">Accedi</button>
+                <span class="ml-2">
+                    Non sei ancora iscritto? <a href="/site/register">Registrati</a>
+                </span>
             </form>
         </div>
     </body>
