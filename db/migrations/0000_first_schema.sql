@@ -65,7 +65,7 @@ CREATE TABLE `User` (
   surname VARCHAR(255) NOT NULL,
   birth_date DATE NOT NULL,
   gender ENUM("male", "female", "other") NOT NULL,
-  phone_number INTEGER NOT NULL,
+  phone_number DECIMAL(12,0) NOT NULL,
   PRIMARY KEY (id)
 );
 
