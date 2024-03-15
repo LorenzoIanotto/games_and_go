@@ -1,28 +1,29 @@
 <?php
-require "../../lib/db.php";
+require "../../lib/db_actions/customer.php";
 
 $error = null;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    $birth_date = DateTime::createFromFormat("Y-m-d", $_POST["birth_date"]);
+    $phone_number = PhoneNumber::from_string($_POST["phone_number"]);
+
     if (!(isset($_POST["email"]) &&
         isset($_POST["password"]) &&
         isset($_POST["name"]) &&
         isset($_POST["surname"]) &&
-        isset($_POST["birth_date"]) &&
+        $birth_date &&
         isset($_POST["gender"]) &&
-        isset($_POST["phone_number"]) &&
-        is_numeric($_POST["phone_number"])
-    )) {
+        $phone_number)) {
         die("Richiesta malformata");
     }
 
-    $res = insert_user($_POST["email"],
+    $res = insert_customer($_POST["email"],
         $_POST["password"],
         $_POST["name"],
         $_POST["surname"],
-        $_POST["birth_date"],
+        $birth_date,
         $_POST["gender"],
-        intval($_POST["phone_number"]));
+        $phone_number);
 
     if (is_int($res)) {
         header("Location: /site/login/");
@@ -43,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="row mb-2">
                     <div class="col">
                         <label class="form-label" for="email-input">Email</label>
-                        <input class="form-control <?php if ($error === RegistrationError::AlreadyExistantUser) echo "is-invalid" ?>" type="email" name="email" id="email-input" required/>
+                        <input class="form-control <?php if ($error === InsertUserError::AlreadyExistentUser) echo "is-invalid" ?>" type="email" name="email" id="email-input" required/>
                         <span class="invalid-feedback">Utente già esistente</span>
                     </div>
                     <div class="col">
