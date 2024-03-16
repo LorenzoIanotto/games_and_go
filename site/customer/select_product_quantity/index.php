@@ -1,5 +1,7 @@
 <?php
+require_once "../../../lib/auth.php";
 session_start();
+protect_page(UserRole::Customer);
 
 $product_id = $_REQUEST["product_id"];
 
