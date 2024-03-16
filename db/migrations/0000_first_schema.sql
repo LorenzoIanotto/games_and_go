@@ -157,4 +157,16 @@ CREATE TABLE InternalOrderProduct (
   FOREIGN KEY (product_id) REFERENCES Product(id)
 );
 
+CREATE TABLE UserFeedback (
+  customer_id INTEGER NOT NULL,
+  product_id INTEGER NOT NULL,
+  summary VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  -- From 0 to 5
+  rating INTEGER NOT NULL,
+  PRIMARY KEY(customer_id, product_id),
+  FOREIGN KEY(customer_id) REFERENCES Customer(user_id),
+  FOREIGN KEY(product_id) REFERENCES Product(id)
+);
+
 COMMIT;
