@@ -6,9 +6,10 @@
                     <a class="nav-link" href="/site/customer/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/site/customer/cart">Cart</a>
+                    <a class="nav-link" href="/site/customer/cart">Carrello</a>
                 </li>
             </ul>
+            <a class="nav-link" href="/site/logout.php">Esci</a>
         </div>
     </nav>
 </header>
