@@ -1,5 +1,5 @@
-<header class="mb-3">
-    <nav class="navbar sticky-top navbar-expand-sm bg-primary">
+<header class="mb-3 sticky-top">
+    <nav class="navbar navbar-expand-sm bg-primary">
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <li class="nav-item">
