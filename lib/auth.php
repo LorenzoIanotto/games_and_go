@@ -27,6 +27,30 @@ function login(string $email, string $password): LoginError|int {
     return intval($user["id"]);
 }
 
+function logout() {
+    session_destroy();
+}
+
+function get_user_role(int $id): UserRole|null {
+    $conn = DatabaseConnection::get_instance();
+
+    foreach (UserRole::cases() as $role) {
+        $stmt = $conn->prepare("SELECT COUNT(user_id) as count FROM $role->value WHERE user_id=?");
+        $stmt->bind_param("i", $id);
+        $res = $stmt->execute();
+
+        if (!$res) return null;
+
+        $count = $stmt->get_result()->fetch_assoc()["count"];
+
+        if ($count > 0) {
+            return $role;
+        }
+    }
+
+    return null;
+}
+
 function get_user_id(): int|null {
     if (isset($_SESSION["user_id"])) {
         return intval($_SESSION["user_id"]);
