@@ -58,17 +58,26 @@ $show_err = isset($_GET["delete_error"]) ? "" : "d-none";
                 <span><strong>Oopsie!</strong> Operazione fallita: controlla che l'utente non abbia dati a suo nome nel sistema. </span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <h2>Clienti</h2>
-            <?php sql_result_table($customers) ?>
-            <h2>Dipendenti</h2>
-            <form>
-                <label for="employee-code-input">Codice</label>
-                <input name="employee_code" id="employee-code-input" value="<?php echo $employee_code ?? "" ?>"/>
-                <button type="submit">Cerca</button>
-            </form>
-            <?php sql_result_table($employees) ?>
-            <h2>Amministratori</h2>
-            <?php sql_result_table($admins) ?>
+            <section class="mb-3">
+                <h2>Clienti</h2>
+                <?php sql_result_table($customers) ?>
+                <a href="/site/register/" class="btn btn-primary">Aggiungi</a>
+            </section>
+            <section class="mb-3">
+                <h2>Dipendenti</h2>
+                <form>
+                    <label for="employee-code-input">Codice</label>
+                    <input name="employee_code" id="employee-code-input" value="<?php echo $employee_code ?? "" ?>"/>
+                    <button class="btn btn-primary" type="submit">Cerca</button>
+                </form>
+                <?php sql_result_table($employees) ?>
+                <a href="/site/admin/users/new/employee/" class="btn btn-primary">Aggiungi</a>
+            </section>
+            <section class="mb-3">
+                <h2>Amministratori</h2>
+                <?php sql_result_table($admins) ?>
+                <a href="/site/admin/users/new/admin/" class="btn btn-primary">Aggiungi</a>
+            </section>
         </main>
     </body>
 </html>
