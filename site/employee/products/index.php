@@ -4,10 +4,10 @@ session_start();
 protect_page(UserRole::Employee);
 
 $conn = DatabaseConnection::get_instance();
-$games_res = $conn->query("SELECT id, code AS Codice, price AS Prezzo, quantity AS Quantità, title AS Titolo, plot AS Trama FROM Game JOIN Product ON Game.product_id = Product.id");
-$consoles_res = $conn->query("SELECT id, code AS Codice, price AS Prezzo, quantity AS Quantità, name AS Nome, type AS Tipo FROM Console JOIN Product ON Console.product_id = Product.id");
-$accessory_res = $conn->query("SELECT id, code AS Codice, price AS Prezzo, quantity AS Quantità, type AS Tipo FROM Accessory JOIN Product ON Accessory.product_id = Product.id");
-$games_guides_res = $conn->query("SELECT id, code AS Codice, price AS Prezzo, quantity AS Quantità, title AS Titolo FROM GameGuide JOIN Product ON GameGuide.product_id = Product.id");
+$games_res = $conn->query("SELECT id, name AS Nome, code AS Codice, price AS Prezzo, quantity AS Quantità, plot AS Trama FROM Game JOIN Product ON Game.product_id = Product.id");
+$consoles_res = $conn->query("SELECT id, name AS Nome, code AS Codice, price AS Prezzo, quantity AS Quantità, type AS Tipo FROM Console JOIN Product ON Console.product_id = Product.id");
+$accessory_res = $conn->query("SELECT id, name AS Nome, code AS Codice, price AS Prezzo, quantity AS Quantità, type AS Tipo FROM Accessory JOIN Product ON Accessory.product_id = Product.id");
+$games_guides_res = $conn->query("SELECT id, name AS Nome, code AS Codice, price AS Prezzo, quantity AS Quantità FROM GameGuide JOIN Product ON GameGuide.product_id = Product.id");
 
 function sql_result_table(mysqli_result $res) {
     echo "<table class=\"table\"><thead><tr>";

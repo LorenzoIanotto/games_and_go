@@ -17,7 +17,7 @@ if (sizeof($products_with_quantity) > 0) {
     $placeholders = implode(',', array_fill(0, count($ids), '?')); // Es. ?,?,?, ...
     $param_types = str_repeat('i', count($ids)); // Es. iii
 
-    $stmt = $conn->prepare("SELECT id, code AS Codice, price AS Prezzo FROM Product WHERE id IN ($placeholders)");
+    $stmt = $conn->prepare("SELECT id, name AS Nome, code AS Codice, price AS Prezzo FROM Product WHERE id IN ($placeholders)");
     $stmt->bind_param($param_types, ...$ids);
     $stmt->execute();
     $res = $stmt->get_result();

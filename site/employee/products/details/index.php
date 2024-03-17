@@ -12,22 +12,22 @@ $conn = DatabaseConnection::get_instance();
 
 $products = array();
 $products[] = $conn->prepare("
-    SELECT code AS Codice, price AS Prezzo, quantity AS Quantità, title AS Titolo, plot AS Trama
+    SELECT name AS Nome, code AS Codice, price AS Prezzo, quantity AS Quantità, plot AS Trama
     FROM Game JOIN Product ON Game.product_id = Product.id
     WHERE product_id=?
 ");
 $products[] = $conn->prepare("
-    SELECT code AS Codice, price AS Prezzo, quantity AS Quantità, name AS Nome, type AS Tipo
+    SELECT name AS Nome, code AS Codice, price AS Prezzo, quantity AS Quantità, type AS Tipo
     FROM Console JOIN Product ON Console.product_id = Product.id
     WHERE product_id=?
 ");
 $products[] = $conn->prepare("
-    SELECT code AS Codice, price AS Prezzo, quantity AS Quantità, type AS Tipo
+    SELECT name AS Nome, code AS Codice, price AS Prezzo, quantity AS Quantità, type AS Tipo
     FROM Accessory JOIN Product ON Accessory.product_id = Product.id
     WHERE product_id=?
 ");
 $products[] = $conn->prepare("
-    SELECT code AS Codice, price AS Prezzo, quantity AS Quantità, title AS Titolo
+    SELECT name AS Nome, code AS Codice, price AS Prezzo, quantity AS Quantità
     FROM GameGuide JOIN Product ON GameGuide.product_id = Product.id
     WHERE product_id=?
 ");
