@@ -45,8 +45,10 @@ function address_to_string(array $address) {
     $str = "";
 
     foreach ($address as $key => $value) {
-        if ($key != "id") $str = $str.$value;
+        if ($key != "id" && $value != "") $str = $str.$value.", ";
     }
+
+    $str = implode(", ", array_filter($address, function ($v, $k) { return $k != "id" && $v != ""; }, ARRAY_FILTER_USE_BOTH));
 
     return $str;
 }
@@ -63,30 +65,42 @@ $total_amount = get_total_amount($products_with_quantity);
     <body>
         <?php require "../../../../components/headers/customer.php" ?>
         <main class="container">
-            <span>Totale (netto): <strong>€<?php echo number_format($total_amount, 2)?></strong>
-            </span>            <form method="POST">
-                <?php
-                if ($addresses_res->num_rows > 0) {
-                    echo '<label for="address-id-input">Indirizzo</label>';
-                    echo '<select name="address_id" id="address-id-input" required>';
-                        while ($row = $addresses_res->fetch_assoc()) {
-                            echo '"<option value="'.$row["id"].'">'.address_to_string($row)."</option>";
-                        }
-                    echo '</select>';
-                }
-                ?>
-                <a href="/site/customer/add_address/">Devi aggiungere un indirizzo?</a>
-                <label for="payment-method-input">Tipo di pagamento</label>
-                <select name="payment_method" id="payment-method-input" required>
-                    <option value="bancomat">Bancomat</option>
-                    <option value="credit_card">Carta di credito</option>
-                    <option value="cash_on_delivery">Contrassegno (+€10)</option>
-                    <option value="bank_transfer">Bonifico bancario</option>
-                </select>
-                <label for="payment-method-code-input">Codice mezzo di pagamento</label>
-                <input name="payment_method_code" id="payment-method-code-input" required/>
-                <button type="submit">Effettua ordine</button>
-            </form>
+            <div class="card">
+                <span class="card-header">Totale (netto): <strong>€<?php echo number_format($total_amount, 2)?></strong></span>
+                <form method="POST" class="card-body">
+                    <div class="row row-cols-2 g-3">
+                        <div class="col">
+                            <?php
+                            if ($addresses_res->num_rows > 0) {
+                                echo '<label class="form-label" for="address-id-input">Indirizzo</label>';
+                                echo '<select class="form-control form-select" name="address_id" id="address-id-input" required>';
+                                while ($row = $addresses_res->fetch_assoc()) {
+                                    echo '"<option value="'.$row["id"].'">'.address_to_string($row)."</option>";
+                                }
+                                echo '</select>';
+                            }
+                            ?>
+                            <a class="form-text" href="/site/customer/add_address/">Devi aggiungere un indirizzo?</a>
+                        </div>
+                        <div class="col">
+                            <label class="form-label" for="payment-method-input">Tipo di pagamento</label>
+                            <select class="form-control form-select" name="payment_method" id="payment-method-input" required>
+                                <option value="bancomat">Bancomat</option>
+                                <option value="credit_card">Carta di credito</option>
+                                <option value="cash_on_delivery">Contrassegno (+€10)</option>
+                                <option value="bank_transfer">Bonifico bancario</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label class="form-label" for="payment-method-code-input">Codice mezzo di pagamento</label>
+                            <input class="form-control" name="payment_method_code" id="payment-method-code-input" required/>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-primary" type="submit" <?php if ($addresses_res->num_rows == 0) echo "disabled"; ?>>Effettua ordine</button>
+                    </div>
+                </form>
+            </div>
         </main>
     </body>
 </html>
