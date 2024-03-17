@@ -23,8 +23,10 @@ if (sizeof($products_with_quantity) > 0) {
     $res = $stmt->get_result();
 }
 
+$invalid_quantity_product_id = $_GET["invalid_quantity_product_id"] ?? null;
 
-function sql_result_table(mysqli_result $res, array $products_with_quantity) {
+
+function sql_result_table(mysqli_result $res, array $products_with_quantity, int|null $invalid_quantity_product_id) {
     echo "<table class=\"table\"><thead><tr>";
 
     while ($field = $res->fetch_field()) {
@@ -43,7 +45,8 @@ function sql_result_table(mysqli_result $res, array $products_with_quantity) {
                 echo "<td>".$field."</td>";
             }
         }
-        echo "<td>".$products_with_quantity[$row["id"]]."</td>";
+        $id = intval($row["id"]);
+        echo '<td class="'.($invalid_quantity_product_id === $id ? "table-danger" : "").'">'.$products_with_quantity[$id]."</td>";
         echo '<td><a class="btn btn-primary" href="/site/customer/select_product_quantity/?product_id='.$row["id"].'">Modifica</a><td>';
         echo "</tr>";
     }
@@ -51,6 +54,8 @@ function sql_result_table(mysqli_result $res, array $products_with_quantity) {
     echo "</tbody></table>";
 }
 
+$show_err = $invalid_quantity_product_id ? "" : "d-none";
+$err_msg = $invalid_quantity_product_id ? "<strong>Quantià eccessiva!</strong> Placa la tua sete di consumo." : null;
 ?>
 <html>
     <head>
@@ -58,12 +63,17 @@ function sql_result_table(mysqli_result $res, array $products_with_quantity) {
         <title>Carrello</title>
     </head>
     <body>
-        <main class="container">
+        <main class="container text-center">
+            <div class="alert alert-danger alert-dismissible fade show <?php echo $show_err ?>" role="alert">
+                <span><?php echo $err_msg ?></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <?php
             if (sizeof($products_with_quantity) == 0) {
                 echo "<span>Carrello vuoto</span>";
             } else {
-                sql_result_table($res, $products_with_quantity);
+                sql_result_table($res, $products_with_quantity, $invalid_quantity_product_id);
+                echo '<a class="btn btn-primary" href="/site/customer/orders/new/">Procedi</a>';
             }
             ?>
         </main>

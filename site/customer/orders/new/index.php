@@ -18,7 +18,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $products_with_quantity = $_SESSION["products_with_quantity"];
-    insert_customer_order($customer_id, $payment_method, $payment_method_code, $address_id, $products_with_quantity);
+    $err = insert_customer_order($customer_id, $payment_method, $payment_method_code, $address_id, $products_with_quantity);
+    
+    if ($err == null) {
+        $_SESSION["products_with_quantity"] = [];
+    } else if ($err instanceof QuantityTooLargeError) {
+        header("Location: /site/customer/cart/?invalid_quantity_product_id=".$err->product_id());
+        die();
+    }
+
+    header("Location: /site/customer/");
+    die();
 }
 
 $conn = DatabaseConnection::get_instance();

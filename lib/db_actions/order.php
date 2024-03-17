@@ -1,4 +1,6 @@
 <?php
+require_once "product.php";
+
 enum PaymentMethod: string {
     case Bancomat = "bancomat";
     case CreditCard = "credit_card";
@@ -6,7 +8,34 @@ enum PaymentMethod: string {
     case BankTransfer = "bank_transfer";
 }
 
-function insert_customer_order(int $customer_id, PaymentMethod $payment_method, string $payment_method_code, int $address_id, array $products_with_quantity) {
+class QuantityTooLargeError {
+    private $product_id;
+
+    public function __construct(int $product_id) {
+        $this->product_id = $product_id;
+    }
+
+    public function product_id(): int {
+        return $this->product_id;
+    }
+}
+
+enum InsertCustomerOrderError {
+    case NoProducts;
+    case DatabaseError;
+}
+
+function insert_customer_order(
+    int $customer_id,
+    PaymentMethod $payment_method,
+    string $payment_method_code,
+    int $address_id,
+    array $products_with_quantity
+): InsertCustomerOrderError|QuantityTooLargeError|null {
+    if (sizeof($products_with_quantity) == 0) {
+        return InsertCustomerOrderError::NoProducts;
+    }
+
     $payment_method_value = $payment_method->value;
     $total_amount = get_total_amount($products_with_quantity);
 
@@ -25,12 +54,35 @@ function insert_customer_order(int $customer_id, PaymentMethod $payment_method, 
 
         if (!$res) {
             $conn->rollback();
-            return false;
+            return InsertCustomerOrderError::DatabaseError;
+        }
+
+        $old_quantity = get_product_quantity($product_id);
+
+        if (!$old_quantity) {
+            $conn->rollback();
+            return InsertCustomerOrderError::DatabaseError;
+        }
+
+        $new_quantity = $old_quantity - $quantity;
+
+        if ($new_quantity < 0) {
+            $conn->rollback();
+            return new QuantityTooLargeError($product_id);
+        }
+
+        $stmt = $conn->prepare("UPDATE Product SET quantity=? WHERE id=?");
+        $stmt->bind_param("ii", $new_quantity, $product_id);
+        $res = $stmt->execute();
+
+        if (!$res) {
+            $conn->rollback();
+            return InsertCustomerOrderError::DatabaseError;
         }
     }
 
     $conn->commit();
-    return true;
+    return null;
 }
 
 // Decimal values are handled as strings to avoid precison errors
