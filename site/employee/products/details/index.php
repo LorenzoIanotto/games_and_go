@@ -76,6 +76,7 @@ $average_rating = number_format($average_rating, 1, ",");
         <title>Dettagli prodotto</title>
     </head>
     <body>
+        <?php require "../../../../components/headers/employee.php" ?>
         <main class="container">
             <section>
                 <h2>Dettagli</h2>
