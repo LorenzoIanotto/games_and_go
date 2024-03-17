@@ -30,6 +30,7 @@ function insert_customer_order(
     PaymentMethod $payment_method,
     string $payment_method_code,
     int $address_id,
+    string $total_amount,
     array $products_with_quantity
 ): InsertCustomerOrderError|QuantityTooLargeError|null {
     if (sizeof($products_with_quantity) == 0) {
@@ -37,7 +38,6 @@ function insert_customer_order(
     }
 
     $payment_method_value = $payment_method->value;
-    $total_amount = get_total_amount($products_with_quantity);
 
     $conn = DatabaseConnection::get_instance();
     $conn->begin_transaction();
@@ -86,19 +86,30 @@ function insert_customer_order(
 }
 
 // Decimal values are handled as strings to avoid precison errors
-function get_total_amount(array $products_with_quantity): string|null {
+// All price manipulations (apart from displaying) are done by the DB
+function get_total_amount(array $products_with_quantity, PaymentMethod|null $payment_method = null): string|null {
     $conn = DatabaseConnection::get_instance();
+    $prices = [];
 
-    $ids = array_keys($products_with_quantity);
-    $placeholders = implode(',', array_fill(0, count($ids), '?')); // Es. ?,?,?, ...
-    $param_types = str_repeat('i', count($ids)); // Es. iii
+    foreach ($products_with_quantity as $product_id => $quantity) {
+        $quantity_int = intval($quantity);
+        $stmt = $conn->prepare("SELECT price*$quantity_int AS price FROM Product WHERE id=?");
+        $stmt->bind_param("i", $product_id);
+        if (!$stmt->execute()) return null;
 
-    $stmt = $conn->prepare("SELECT SUM(price) AS total_amount FROM Product WHERE id IN ($placeholders)");
-    $stmt->bind_param($param_types, ...$ids);
-    $stmt->execute();
-    $res = $stmt->get_result();
+        $price = $stmt->get_result()->fetch_assoc()["price"];
+        $prices[] = $price;
+    }
+
+    $sum_string_representation = implode("+", $prices);
+    if ($payment_method === PaymentMethod::CashOnDelivery) {
+        $sum_string_representation .= "+10.00";
+    }
+    $res = $conn->query("SELECT $sum_string_representation AS sum");
 
     if (!$res) return null;
 
-    return $res->fetch_assoc()["total_amount"];
+    $total_amount = $res->fetch_assoc()["sum"];
+
+    return $total_amount;
 }
