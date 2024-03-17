@@ -18,6 +18,7 @@ CREATE TABLE Address (
 
 CREATE TABLE Product (
   id INTEGER AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
   code VARCHAR(255) UNIQUE NOT NULL,
   price DECIMAL NOT NULL,
   quantity INTEGER NOT NULL,
@@ -26,7 +27,6 @@ CREATE TABLE Product (
 
 CREATE TABLE Console (
   product_id INTEGER NOT NULL,
-  name VARCHAR(255) NOT NULL,
   type VARCHAR(255) NOT NULL,
   PRIMARY KEY (product_id),
   FOREIGN KEY (product_id) REFERENCES Product(id)
@@ -34,7 +34,6 @@ CREATE TABLE Console (
 
 CREATE TABLE Game (
   product_id INTEGER NOT NULL,
-  title VARCHAR(255) NOT NULL,
   plot TEXT NOT NULL,
   console_id INTEGER NOT NULL,
   PRIMARY KEY (product_id),
@@ -51,7 +50,6 @@ CREATE TABLE Accessory (
 
 CREATE TABLE GameGuide (
   product_id INTEGER NOT NULL,
-  title VARCHAR(255) NOT NULL,
   PRIMARY KEY (product_id),
   FOREIGN KEY (product_id) REFERENCES Product(id)
 );
