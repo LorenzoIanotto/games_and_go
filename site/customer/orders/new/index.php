@@ -53,30 +53,33 @@ function address_to_string(array $address) {
         <?php require "../../../../components/bootstrap.php" ?>
         <title>Effettua ordine</title>
     </head>
-    <body class="container">
-        <form method="POST">
-            <?php
-            if ($addresses_res->num_rows > 0) {
-                echo '<label for="address-id-input">Indirizzo</label>';
-                echo '<select name="address_id" id="address-id-input">';
-                    while ($row = $addresses_res->fetch_assoc()) {
-                        echo "<option>".address_to_string($row)."</option>";
-                    }
-                echo '</select>';
-            } else {
-                echo '<a href="/site/customer/add_address/">Devi aggiungere un indirizzo<a>';
-            }
-            ?>
-            <label for="payment-method-input">Tipo di pagamento</label>
-            <select name="payment_method" id="payment-method-input">
-                <option value="bancomat">Bancomat</option>
-                <option value="credit_card">Carta di credito</option>
-                <option value="cash_on_delivery">Contrassegno</option>
-                <option value="bank_transfer">Bonifico bancario</option>
-            </select>
-            <label for="payment-method-code-input">Codice mezzo di pagamento</label>
-            <input name="payment_method_code" id="payment-method-code-input" />
-            <button type="submit">Effettua ordine</button>
-        </form>
+    <body>
+        <?php require "../../../../components/headers/customer.php" ?>
+        <main class="container">
+            <form method="POST">
+                <?php
+                if ($addresses_res->num_rows > 0) {
+                    echo '<label for="address-id-input">Indirizzo</label>';
+                    echo '<select name="address_id" id="address-id-input">';
+                        while ($row = $addresses_res->fetch_assoc()) {
+                            echo "<option>".address_to_string($row)."</option>";
+                        }
+                    echo '</select>';
+                } else {
+                    echo '<a href="/site/customer/add_address/">Devi aggiungere un indirizzo<a>';
+                }
+                ?>
+                <label for="payment-method-input">Tipo di pagamento</label>
+                <select name="payment_method" id="payment-method-input">
+                    <option value="bancomat">Bancomat</option>
+                    <option value="credit_card">Carta di credito</option>
+                    <option value="cash_on_delivery">Contrassegno</option>
+                    <option value="bank_transfer">Bonifico bancario</option>
+                </select>
+                <label for="payment-method-code-input">Codice mezzo di pagamento</label>
+                <input name="payment_method_code" id="payment-method-code-input" />
+                <button type="submit">Effettua ordine</button>
+            </form>
+        </main>
     </body>
 </html>

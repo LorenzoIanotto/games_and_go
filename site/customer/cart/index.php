@@ -63,6 +63,7 @@ $err_msg = $invalid_quantity_product_id ? "<strong>Quantià eccessiva!</strong> 
         <title>Carrello</title>
     </head>
     <body>
+        <?php require "../../../components/headers/customer.php" ?>
         <main class="container text-center">
             <div class="alert alert-danger alert-dismissible fade show <?php echo $show_err ?>" role="alert">
                 <span><?php echo $err_msg ?></span>

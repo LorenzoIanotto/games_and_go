@@ -44,6 +44,7 @@ function sql_result_table(mysqli_result $res) {
         <title>Games and Go</title>
     </head>
     <body>
+        <?php require "../../components/headers/customer.php" ?>
         <main class="container">
             <h2>Giochi</h2>
             <?php sql_result_table($games_res) ?>

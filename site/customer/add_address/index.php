@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <title>Aggiungi indirizzo</title>
     </head>
     <body class="container">
+        <?php require "../../../components/headers/customer.php" ?>
         <form method="POST">
             <label for="country-code-input">Codice Paese</label>
             <input name="country_code" id="country-code-input" placeholder="AAA" pattern="[A-Z]{3}" required/>

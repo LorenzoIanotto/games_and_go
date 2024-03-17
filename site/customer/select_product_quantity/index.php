@@ -42,6 +42,7 @@ if (!$db_quantity) die("Errore");
         <title>Aggiungi al carrello</title>
     </head>
     <body>
+        <?php require "../../../components/headers/customer.php" ?>
         <main class="container">
             <form method="POST">
                 <input type="hidden" value="<?php echo $product_id ?>" name="product_id"/>
