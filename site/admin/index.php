@@ -43,13 +43,15 @@ function sql_result_table(mysqli_result $res) {
         <title>Homepage Admin</title>
     </head>
     <body>
+        <?php require "../../components/headers/admin.php" ?>
         <main class="container">
             <form>
+                <h1 class="mb-3">Visualizza Ordini</h1>
                 <label for="date-from-input">Da</label>
                 <input type="date" name="date_from" id="date-from-input" value="<?php echo ($_GET["date_from"] ?? false) ? $_GET["date_from"] : "" ?>"/>
                 <label for="date-to-input">A</label>
                 <input type="date" name="date_to" id="date-to-input" value="<?php echo ($_GET["date_to"] ?? false) ? $_GET["date_to"] : "" ?>"/>
-                <button type="submit">Cerca</button>
+                <button class="btn btn-primary" type="submit">Cerca</button>
             </form>
             <?php sql_result_table($res) ?>
         </main>

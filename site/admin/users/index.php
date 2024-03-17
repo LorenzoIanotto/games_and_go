@@ -52,6 +52,7 @@ $show_err = isset($_GET["delete_error"]) ? "" : "d-none";
         <title>Gestione Utenti</title>
     </head>
     <body>
+        <?php require "../../../components/headers/admin.php" ?>
         <main class="container">
             <div class="alert alert-danger alert-dismissible fade show <?php echo $show_err ?>" role="alert">
                 <span><strong>Oopsie!</strong> Operazione fallita: controlla che l'utente non abbia dati a suo nome nel sistema. </span>
