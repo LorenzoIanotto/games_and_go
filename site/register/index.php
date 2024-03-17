@@ -4,8 +4,8 @@ require "../../lib/db_actions/customer.php";
 $error = null;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $birth_date = DateTime::createFromFormat("Y-m-d", $_POST["birth_date"]);
-    $phone_number = PhoneNumber::from_string($_POST["phone_number"]);
+    $birth_date = DateTime::createFromFormat("Y-m-d", $_POST["birth_date"] ?? "");
+    $phone_number = PhoneNumber::from_string($_POST["phone_number"] ?? "");
 
     if (!(isset($_POST["email"]) &&
         isset($_POST["password"]) &&

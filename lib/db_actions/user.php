@@ -1,5 +1,4 @@
 <?php
-require_once "../../lib/db.php";
 
 class PhoneNumber {
     private int $value;
@@ -34,7 +33,15 @@ enum InsertUserError {
     case DatabaseError;
 }
 
-function insert_user(string $email, string $password, string $name, string $surname, DateTime $birth_date, string $gender, PhoneNumber $phone_number, DatabaseConnection $conn = null): InsertUserError|int {
+function insert_user(
+    string $email,
+    string $password,
+    string $name,
+    string $surname,
+    DateTime $birth_date,
+    string $gender,
+    PhoneNumber $phone_number
+): InsertUserError|int {
 
     $password_hash = hash("sha256", $password);
 
@@ -53,7 +60,9 @@ function insert_user(string $email, string $password, string $name, string $surn
 
     $stmt = $conn->prepare("INSERT INTO User (email, password_hash, name, surname, birth_date, gender, phone_number)
         VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssi", $email, $password_hash, $name, $surname, $birth_date->format("Y-m-d"), $gender, $phone_number->get_value());
+    $birth_date_str = $birth_date->format("Y-m-d");
+    $phone_number_value = $phone_number->get_value();
+    $stmt->bind_param("ssssssi", $email, $password_hash, $name, $surname, $birth_date_str, $gender, $phone_number_value);
     $stmt->execute();
     $id = mysqli_insert_id($conn);
     
@@ -62,4 +71,37 @@ function insert_user(string $email, string $password, string $name, string $surn
     }
 
     return InsertUserError::DatabaseError;
+}
+
+function delete_user(int $user_id): bool {
+    $conn = DatabaseConnection::get_instance();
+    $conn->begin_transaction();
+
+    try {
+        foreach (UserRole::cases() as $role) {
+            $stmt = $conn->prepare("DELETE IGNORE FROM $role->value WHERE user_id=?");
+            $stmt->bind_param("i", $user_id);
+            $res = $stmt->execute();
+
+            if (!$res) {
+                throw new Error();
+            }
+        }
+
+
+        $stmt = $conn->prepare("DELETE FROM User WHERE id=?");
+        $stmt->bind_param("i", $user_id);
+        $res = $stmt->execute();
+
+        if (!$res) {
+            $conn->rollback();
+            return false;
+        }
+    } catch (\Throwable) {
+        $conn->rollback();
+        return false;
+    }
+
+    $conn->commit();
+    return true;
 }
