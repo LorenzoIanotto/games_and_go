@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Richiesta malformata");
     }
 
-    $res = add_address_to_customer($customer_id, $house_number, $street, $street, $postcode, $country_code, $extension);
+    $res = add_address_to_customer($customer_id, $house_number, $street, $city, $postcode, $country_code, $extension);
 
     if ($res !== null) {
         header("Location: /site/customer/orders/new/");
