@@ -4,8 +4,8 @@ require_once "../../lib/db.php";
 session_start();
 protect_page(UserRole::Admin);
 
-$date_from = DateTime::createFromFormat("Y-m-d", $_GET["date_from"]) ? $_GET["date_from"] : "1970-01-01";
-$date_to = DateTime::createFromFormat("Y-m-d", $_GET["date_to"]) ? $_GET["date_to"] : "9999-12-31";
+$date_from = DateTime::createFromFormat("Y-m-d", $_GET["date_from"] ?? "") ? $_GET["date_from"] : "1970-01-01";
+$date_to = DateTime::createFromFormat("Y-m-d", $_GET["date_to"] ?? "") ? $_GET["date_to"] : "9999-12-31";
 
 $conn = DatabaseConnection::get_instance();
 $stmt = $conn->prepare("SELECT created_at AS Data, name AS Nome, surname AS Cognome, total_amount AS Totale, payment_method AS `Metodo di pagamento` FROM User
@@ -46,9 +46,9 @@ function sql_result_table(mysqli_result $res) {
         <main class="container">
             <form>
                 <label for="date-from-input">Da</label>
-                <input type="date" name="date_from" id="date-from-input"/>
+                <input type="date" name="date_from" id="date-from-input" value="<?php echo ($_GET["date_from"] ?? false) ? $_GET["date_from"] : "" ?>"/>
                 <label for="date-to-input">A</label>
-                <input type="date" name="date_to" id="date-to-input"/>
+                <input type="date" name="date_to" id="date-to-input" value="<?php echo ($_GET["date_to"] ?? false) ? $_GET["date_to"] : "" ?>"/>
                 <button type="submit">Cerca</button>
             </form>
             <?php sql_result_table($res) ?>
