@@ -2,6 +2,7 @@
 require_once "../../../../lib/auth.php";
 require_once "../../../../lib/db.php";
 require_once "../../../../lib/db_actions/order.php";
+require_once "../../../../lib/db_actions/customer.php";
 session_start();
 protect_page(UserRole::Customer);
 
@@ -23,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($err == null) {
         $_SESSION["products_with_quantity"] = [];
+        add_points_to_customer($customer_id, 5);
     } else if ($err instanceof QuantityTooLargeError) {
         header("Location: /site/customer/cart/?invalid_quantity_product_id=".$err->product_id());
         die();

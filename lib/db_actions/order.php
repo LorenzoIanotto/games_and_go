@@ -88,6 +88,8 @@ function insert_customer_order(
 // Decimal values are handled as strings to avoid precison errors
 // All price manipulations (apart from displaying) are done by the DB
 function get_total_amount(array $products_with_quantity, PaymentMethod|null $payment_method = null): string|null {
+    if (sizeof($products_with_quantity) == 0) return null;
+
     $conn = DatabaseConnection::get_instance();
     $prices = [];
 
