@@ -62,13 +62,12 @@ function address_to_string(array $address) {
                     echo '<label for="address-id-input">Indirizzo</label>';
                     echo '<select name="address_id" id="address-id-input">';
                         while ($row = $addresses_res->fetch_assoc()) {
-                            echo "<option>".address_to_string($row)."</option>";
+                            echo '"<option value="'.$row["id"].'">'.address_to_string($row)."</option>";
                         }
                     echo '</select>';
-                } else {
-                    echo '<a href="/site/customer/add_address/">Devi aggiungere un indirizzo<a>';
                 }
                 ?>
+                <a href="/site/customer/add_address/">Devi aggiungere un indirizzo?<a>
                 <label for="payment-method-input">Tipo di pagamento</label>
                 <select name="payment_method" id="payment-method-input">
                     <option value="bancomat">Bancomat</option>
