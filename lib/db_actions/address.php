@@ -1,4 +1,6 @@
 <?php
+require_once (__DIR__ . "/../db.php");
+
 function add_address_to_customer(int $customer_id, int $house_number, string $street, string $city, int $postcode, string $country_code, int $extension = null): int|false {
     // Check if the address already exists, and in that case select the id
     $conn = DatabaseConnection::get_instance();

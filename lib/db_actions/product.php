@@ -1,4 +1,6 @@
 <?php
+require_once (__DIR__ . "/../db.php");
+
 function get_product_quantity(int $product_id): int|null {
 
     $conn = DatabaseConnection::get_instance();

@@ -1,5 +1,6 @@
 <?php
-require_once "user.php";
+require_once (__DIR__ . "/user.php");
+require_once (__DIR__ . "/../db.php");
 
 function insert_customer(string $email, string $password, string $name, string $surname, DateTime $birth_date, string $gender, PhoneNumber $phone_number): InsertUserError|int {
     $conn = DatabaseConnection::get_instance();
