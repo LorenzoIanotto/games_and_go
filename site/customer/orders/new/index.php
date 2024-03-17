@@ -60,23 +60,23 @@ function address_to_string(array $address) {
                 <?php
                 if ($addresses_res->num_rows > 0) {
                     echo '<label for="address-id-input">Indirizzo</label>';
-                    echo '<select name="address_id" id="address-id-input">';
+                    echo '<select name="address_id" id="address-id-input" required>';
                         while ($row = $addresses_res->fetch_assoc()) {
                             echo '"<option value="'.$row["id"].'">'.address_to_string($row)."</option>";
                         }
                     echo '</select>';
                 }
                 ?>
-                <a href="/site/customer/add_address/">Devi aggiungere un indirizzo?<a>
+                <a href="/site/customer/add_address/">Devi aggiungere un indirizzo?</a>
                 <label for="payment-method-input">Tipo di pagamento</label>
-                <select name="payment_method" id="payment-method-input">
+                <select name="payment_method" id="payment-method-input" required>
                     <option value="bancomat">Bancomat</option>
                     <option value="credit_card">Carta di credito</option>
                     <option value="cash_on_delivery">Contrassegno</option>
                     <option value="bank_transfer">Bonifico bancario</option>
                 </select>
                 <label for="payment-method-code-input">Codice mezzo di pagamento</label>
-                <input name="payment_method_code" id="payment-method-code-input" />
+                <input name="payment_method_code" id="payment-method-code-input" required/>
                 <button type="submit">Effettua ordine</button>
             </form>
         </main>
