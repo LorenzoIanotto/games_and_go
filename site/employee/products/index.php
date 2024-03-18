@@ -29,6 +29,7 @@ function sql_result_table(mysqli_result $res) {
             }
         }
         echo '<td><a class="btn btn-primary" href="/site/employee/products/details/?product_id='.$row["id"].'">Dettagli</a><td>';
+        echo '<td><a class="btn btn-primary" href="/site/employee/select_product_quantity/?product_id='.$row["id"].'">Aggiungi a ordine</a><td>';
         echo "</tr>";
     }
 
