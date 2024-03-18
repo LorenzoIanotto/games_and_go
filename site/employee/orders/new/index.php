@@ -33,6 +33,7 @@ $vendor_res = $conn->query("SELECT * FROM Vendor");
 if (!$vendor_res) die("Errore");
 
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require "../../../../components/bootstrap.php" ?>

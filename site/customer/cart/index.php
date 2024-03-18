@@ -57,6 +57,7 @@ function sql_result_table(mysqli_result $res, array $products_with_quantity, int
 $show_err = $invalid_quantity_product_id ? "" : "d-none";
 $err_msg = $invalid_quantity_product_id ? "<strong>Quantià eccessiva!</strong> Placa la tua sete di consumo." : null;
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require "../../../components/bootstrap.php"; ?>

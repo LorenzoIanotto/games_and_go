@@ -105,6 +105,7 @@ $average_rating = number_format($average_rating, 1, ",");
 
 $customer_has_already_reviewed = false;
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require "../../../../components/bootstrap.php" ?>

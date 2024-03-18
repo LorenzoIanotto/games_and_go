@@ -70,6 +70,7 @@ $average_rating = $stmt->get_result()->fetch_assoc()["average_rating"];
 $average_rating = number_format($average_rating, 1, ",");
 
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require "../../../../components/bootstrap.php" ?>

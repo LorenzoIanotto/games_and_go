@@ -46,6 +46,7 @@ $admins = $conn->query("SELECT $user_attributes FROM User JOIN Admin ON User.id=
 
 $show_err = isset($_GET["delete_error"]) ? "" : "d-none";
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require "../../../components/bootstrap.php" ?>

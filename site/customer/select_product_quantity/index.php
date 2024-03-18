@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $db_quantity = get_product_quantity($product_id);
 if (!$db_quantity) die("Errore");
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require "../../../components/bootstrap.php" ?>

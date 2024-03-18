@@ -53,6 +53,7 @@ function sql_result_table(mysqli_result $res, array $products_with_quantity) {
 }
 
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require "../../../components/bootstrap.php"; ?>

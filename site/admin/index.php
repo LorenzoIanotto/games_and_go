@@ -37,6 +37,7 @@ function sql_result_table(mysqli_result $res) {
     echo "</tbody></table>";
 }
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require("../../components/bootstrap.php"); ?>

@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require "../../../components/bootstrap.php" ?>

@@ -57,6 +57,7 @@ function address_to_string(array $address) {
 $total_amount = get_total_amount($products_with_quantity);
 
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require "../../../../components/bootstrap.php" ?>

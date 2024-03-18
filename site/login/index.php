@@ -17,6 +17,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     $error = $res;
 }
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require("../../components/bootstrap.php"); ?>
