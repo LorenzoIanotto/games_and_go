@@ -7,7 +7,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/site/employee/products/">Gestione prodotti</a>
-                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/site/employee/cart/">Nuovo ordine</a>
+                </li>               </li>
             </ul>
             <a class="nav-link" href="/site/logout.php">Esci</a>
         </div>
