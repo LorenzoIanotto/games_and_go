@@ -35,7 +35,7 @@ CREATE TABLE Console (
 CREATE TABLE Game (
   product_id INTEGER NOT NULL,
   plot TEXT NOT NULL,
-  console_id INTEGER NOT NULL,
+  console_id INTEGER NULL,
   PRIMARY KEY (product_id),
   FOREIGN KEY (product_id) REFERENCES Product(id),
   FOREIGN KEY (console_id) REFERENCES Console(product_id)
