@@ -19,7 +19,7 @@ function sql_result_table(mysqli_result $res) {
             echo "<th>".$field->name."</th>";
         }
     }
-    echo "<th></th>";
+    echo "<th></th><th></th>";
 
     echo "</tr></thead><tbody>";
 
@@ -30,7 +30,8 @@ function sql_result_table(mysqli_result $res) {
                 echo "<td>".$field."</td>";
             }
         }
-        echo '<td><a class="btn btn-primary" href="/site/customer/select_product_quantity/?product_id='.$row["id"].'">Inserisci</a><td>';
+        echo '<td><a class="btn btn-primary" href="/site/customer/select_product_quantity/?product_id='.$row["id"].'">Inserisci</a></td>';
+        echo '<td><a class="btn btn-primary" href="/site/customer/products/details/?product_id='.$row["id"].'">Dettagli</a></td>';
         echo "</tr>";
     }
 
@@ -38,6 +39,7 @@ function sql_result_table(mysqli_result $res) {
 }
 
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <?php require "../../components/bootstrap.php"; ?>

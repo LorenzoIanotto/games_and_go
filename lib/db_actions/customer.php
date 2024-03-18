@@ -2,6 +2,29 @@
 require_once (__DIR__ . "/user.php");
 require_once (__DIR__ . "/../db.php");
 
+function delete_user_feedback(int $customer_id, int $product_id): bool {
+    $conn = DatabaseConnection::get_instance();
+    $stmt = $conn->prepare("DELETE FROM UserFeedback WHERE customer_id=? AND product_id=?");
+    $stmt->bind_param("ii", $customer_id, $product_id);
+
+    if (!$stmt->execute()) return false;
+
+    return true;
+}
+
+function insert_user_feedback(string $summary, string $description, int $rating, int $customer_id, int $product_id) {
+    $conn = DatabaseConnection::get_instance();
+    $stmt = $conn->prepare("
+        INSERT INTO UserFeedback (summary, description, rating, customer_id, product_id)
+        VALUES (?, ?, ?, ?, ?)
+    ");
+    $stmt->bind_param("ssiii", $summary, $description, $rating, $customer_id, $product_id);
+    
+    if (!$stmt->execute()) return false;
+
+    return true;
+}
+
 function insert_customer(string $email, string $password, string $name, string $surname, DateTime $birth_date, string $gender, PhoneNumber $phone_number): InsertUserError|int {
     $conn = DatabaseConnection::get_instance();
     $conn->begin_transaction();
