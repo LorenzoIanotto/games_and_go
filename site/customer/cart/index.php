@@ -47,7 +47,7 @@ function sql_result_table(mysqli_result $res, array $products_with_quantity, int
         }
         $id = intval($row["id"]);
         echo '<td class="'.($invalid_quantity_product_id === $id ? "table-danger" : "").'">'.$products_with_quantity[$id]."</td>";
-        echo '<td><a class="btn btn-primary" href="/site/customer/select_product_quantity/?product_id='.$row["id"].'">Modifica</a><td>';
+        echo '<td><a class="btn btn-primary" href="/site/customer/select_product_quantity/?product_id='.$row["id"].'">Modifica</a></td>';
         echo "</tr>";
     }
 

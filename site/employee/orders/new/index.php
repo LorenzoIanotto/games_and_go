@@ -51,7 +51,7 @@ if (!$vendor_res) die("Errore");
                                 echo '<label class="form-label" for="vendor-id-input">Fornitore</label>';
                                 echo '<select class="form-control form-select" name="vendor_id" id="vendor-id-input" required>';
                                 while ($row = $vendor_res->fetch_assoc()) {
-                                    echo '"<option value="'.$row["id"].'">'.$row["vat_number"]." ".$row["business_name"]."</option>";
+                                    echo '<option value="'.$row["id"].'">'.$row["vat_number"]." ".$row["business_name"]."</option>";
                                 }
                                 echo '</select>';
                             }

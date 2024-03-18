@@ -76,7 +76,7 @@ $total_amount = get_total_amount($products_with_quantity);
                                 echo '<label class="form-label" for="address-id-input">Indirizzo</label>';
                                 echo '<select class="form-control form-select" name="address_id" id="address-id-input" required>';
                                 while ($row = $addresses_res->fetch_assoc()) {
-                                    echo '"<option value="'.$row["id"].'">'.address_to_string($row)."</option>";
+                                    echo '<option value="'.$row["id"].'">'.address_to_string($row)."</option>";
                                 }
                                 echo '</select>';
                             }

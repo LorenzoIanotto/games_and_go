@@ -34,8 +34,8 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="password-input">Password</label>
-                    <input class="form-control <?php if ($error === LoginError::WrongPassord) echo "is-invalid" ?> "type="password" name="password" id="password-input" />
-                    <span class="invalid-feedback"">Password errata</span>
+                    <input class="form-control <?php if ($error === LoginError::WrongPassord) echo "is-invalid" ?>"type="password" name="password" id="password-input" />
+                    <span class="invalid-feedback">Password errata</span>
                 </div>
                 <button class="btn btn-primary" type="submit">Accedi</button>
                 <span class="ms-2 align-middle">

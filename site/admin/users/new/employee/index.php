@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="col">
                             <label class="form-label" for="gender-input">Sesso</label>
                             <select class="form-control form-select" name="gender" id="gender-input" required>
-                                <option hidden disabled selected value></option>
+                                <option hidden disabled selected value>Seleziona...</option>
                                 <option value="male">Uomo</option>
                                 <option value="female">Donna</option>
                                 <option value="other">Australopiteco</option>
