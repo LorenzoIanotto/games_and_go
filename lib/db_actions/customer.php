@@ -35,6 +35,27 @@ class LoyalityCard {
         $this->number = $number;
         $this->points = $points;
     }
+
+    public static function from_customer_id(int $customer_id): LoyalityCard {
+        $random_number = rand(100000000, 99999999);
+        $loyality_card_number = $random_number*10+$customer_id;
+        return new LoyalityCard($loyality_card_number, 0);
+    }
+}
+
+// returns the loyality card or false in case of error
+function insert_loyality_card(int $customer_id): LoyalityCard|false {
+    $conn = DatabaseConnection::get_instance();
+    $card = LoyalityCard::from_customer_id($customer_id);
+
+    $stmt = $conn->prepare("UPDATE Customer SET loyality_card_number=? WHERE user_id=?");
+    $stmt->bind_param("ii", $card->number, $customer_id);
+
+    if (!$stmt->execute()) {
+        return false;
+    }
+
+    return $card;
 }
 
 // null is returned when there's no loyality card, false when there's an error
