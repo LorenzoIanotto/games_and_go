@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      img {
+        width: 50vw;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Da Logico a Concettuale</h1>
+    <h2>Rielaborazione gerarchie</h2>
+    <p>
+      Le relazione gerarchiche di User e Product vengono rappresentate senza
+      collasso tramite le relazioni &quot;Is a&quot;:
+      <img src="./images/gerarchie.jpg" alt="Gerarchie" />
+    </p>
+    <h2>Rielaborazione associazioni molti-molti</h2>
+    <h3>Ordini</h3>
+    <p>
+      Le associazioni tra gli ordini e i prodotti devono essere elevate a
+      relazioni (deboli) <img src="./images/ordini.jpg" alt="Ordini" />
+    </p>
+    <h3>Indirizzi clienti</h3>
+    <p>
+      Gli indirizzi che il cliente inserisci per i propri ordini devono essere
+      salvati in una relazione a parte
+      <img src="./images/indirizzi_customer.jpg" alt="Indirizzi" />
+    </p>
+    <h3>Feedback clienti</h3>
+    <p>
+      Le recensioni dei clienti vengono salvate in una relazione a parte
+      <img src="./images/user_feedback.jpg" alt="Feedback cliente" />
+    </p>
+    <h2>Schema logico</h2>
+    <p>
+      Address(<strong
+        >extension, house_number, street, city, postcode, country_code</strong
+      >)
+    </p>
+    <p>Product(<strong>code</strong>, name, price, quantity)</p>
+    <p>
+      Console(type, <strong><em>product_code</em> &rarr; Product</strong>)
+    </p>
+    <p>
+      Game(plot, <strong><em>product_code</em> &rarr; Product</strong>,
+      <em>console_code</em> &rarr; Console)
+    </p>
+    <p>
+      Accessory(type, <strong><em>product_code</em> &rarr; Product</strong>)
+    </p>
+    <p>
+      GameGuide(<strong><em>product_code</em> &rarr; Product</strong>)
+    </p>
+    <p>
+      User(<strong>email</strong>, password_hash, name, surname, birth_date,
+      gender, phone_number)
+    </p>
+    <p>
+      Customer(loyality_card_number, loyality_card_points,
+      <strong><em>user_email</em> &rarr; User</strong>)
+    </p>
+    <p>
+      Employee(code, role, <strong><em>user_email</em> &rarr; User</strong>,
+      <em>extension, house_number, street, city, postcode, country_code</em>
+      &rarr; Address)
+    </p>
+    <p>
+      Admin(<strong><em>user_email</em> &rarr; User</strong>)
+    </p>
+    <p>
+      CustomerOrder(<strong
+        ><em>customer_email</em> &rarr; Customer, created_at</strong
+      >, payment_method, payment_method_code, payment_successful, total_amount,
+      order_status,
+      <em>extension, house_number, street, city, postcode, country_code</em>
+      &rarr; Address)
+    </p>
+    <p>
+      CustomerOrderProduct(<strong
+        ><em>customer_email, created_at</em> &rarr; CustomerOrder,
+        <em>product_code</em> &rarr; Product</strong
+      >, quantity)
+    </p>
+    <p>
+      Vendor(<strong>vat_number</strong>, business_name, email,
+      <em>extension, house_number, street, city, postcode, country_code</em>
+      &rarr; Address)
+    </p>
+    <p>
+      CustomerAddress(<strong
+        ><em>customer_email</em> &rarr; Customer,
+        <em>extension, house_number, street, city, postcode, country_code</em>
+        &rarr; Address</strong
+      >)
+    </p>
+    <p>
+      InternalOrder(<strong
+        ><em>employee_email</em> &rarr; Employee, created_at</strong
+      >, total_amount, <em>vendor_vat_number</em> &rarr; Vendor)
+    </p>
+    <p>
+      InternalOrderProduct(<strong
+        ><em>employee_email, created_at</em> &rarr; InternalOrder,
+        <em>product_code</em> &rarr; Product</strong
+      >, quantity)
+    </p>
+    <p>
+      UserFeedback(<strong
+        ><em>customer_email</em> &rarr; Customer, <em>product_code</em> &rarr;
+        Product</strong
+      >, summary, description, rating)
+    </p>
+  </body>
+</html>

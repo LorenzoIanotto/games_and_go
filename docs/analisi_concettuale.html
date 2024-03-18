@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      img {
+        width: 100%;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Analisi Concettuale</h1>
+    <h2>Prodotti</h2>
+    <p>Ci sono 4 tipi di prodotti venduti:</p>
+    <ol>
+      <li>Console</li>
+      <li>Giochi</li>
+      <li>Accessori</li>
+      <li>Guide ai giochi</li>
+    </ol>
+    <p>Ogni prodotto ha:</p>
+    <ul>
+      <li>
+        Nome (questo attributo raccoglie sia i titoli che i nomi delle varie
+        specializzazioni)
+      </li>
+      <li>
+        Codice (si ipotizza che sia univoco tra tutti i prodotti e che sia
+        utilizzato anche dalle Guide nonostante non sia esplicitato)
+      </li>
+      <li>Prezzo (in euro)</li>
+      <li>Quantità</li>
+    </ul>
+    <p>
+      Quindi abbiamo una relazione gerarchica generalizzando la rappresentazione
+      del prodotto.
+    </p>
+    <h3>Console</h3>
+    <p>La relazione Console ha come attributi:</p>
+    <ul>
+      <li>tipo</li>
+    </ul>
+    <h3>Gioco</h3>
+    <p>La relazione Gioco ha come attributi:</p>
+    <ul>
+      <li>trama</li>
+      <li>anno di rilascio</li>
+    </ul>
+    <h3>Accessorio</h3>
+    <p>La relazione Accessorio ha come attributi:</p>
+    <ul>
+      <li>tipo</li>
+    </ul>
+    <h3>Guide ai Giochi</h3>
+    <p>
+      Si ipotizza che la relazione Guide ai Giochi non abbia ulteriori attributi
+    </p>
+    <h2>Utenti</h2>
+    <p>Ci sono 3 tipi di utenti:</p>
+    <ol>
+      <li>clienti</li>
+      <li>dipendenti</li>
+      <li>amministratori</li>
+    </ol>
+    <p>Si ipotizza che i fornitori non abbiamo accesso al sistema</p>
+    <p>Ogni utente ha:</p>
+    <ul>
+      <li>Generalità: nome, cognome, data di nascita, genere</li>
+      <li>numero telefonico</li>
+      <li>email</li>
+      <li>hash password</li>
+    </ul>
+    <p>
+      Quindi abbiamo una relazione gerarchica generalizzando la rappresentazione
+      dell'utente.
+    </p>
+    <h3>Clienti</h3>
+    <p>Ogni Cliente ha:</p>
+    <ul>
+      <li>Numero carta di fedeltà</li>
+      <li>Numero punti carta fedeltà</li>
+    </ul>
+    <p>
+      Si ipotizza che ciascun cliente possa avere un'unica carta fedeltà e che
+      questa aumenti di 5 punti ad ogni acquisto
+    </p>
+    <h3>Dipendenti</h3>
+    <p>Ogni dipendente ha:</p>
+    <ul>
+      <li>Codice (univoco)</li>
+      <li>Ruolo</li>
+    </ul>
+    <h3>Amministratori</h3>
+    <p>Si ipotizza che gli amministratori non abbiamo ulteriori attributi</p>
+    <h2>Indirizzi</h2>
+    <p>Ogni indirizzo ha:</p>
+    <ul>
+      <li>interno</li>
+      <li>numero civico</li>
+      <li>via</li>
+      <li>città</li>
+      <li>CAP (o equivalente)</li>
+      <li>Paese (tre caratteri standard ISO)</li>
+    </ul>
+    <p>Si ipotizza che la combinazione di questi sia univoca.</p>
+    <h2>Ordini Cliente</h2>
+    <p>
+      Ogni ordine effettuato da un cliente, distinto da quello effettuato da un
+      dipendente, ha i seguenti attributi:
+    </p>
+    <ul>
+      <li>
+        Metodo di pagamento (bancomat, carta di credito, contrassegno o
+        bonifico)
+      </li>
+      <li>
+        Codice del metodo di pagamento (può essere in vari formati in base al
+        metodo, sempre riconducibili ad una stringa)
+      </li>
+      <li>
+        Stato del pagamento (effettuato o no, necessario per il contrassegno)
+      </li>
+      <li>Stato dell'ordine</li>
+      <li>Totale transizione</li>
+      <li>Momento dell'ordinazione</li>
+    </ul>
+    <p>
+      In un determinato momento solo un ordine potrà essere effettuato da un
+      singolo cliente.
+    </p>
+    <h2>Ordini Dipendente</h2>
+    <p>Ogni ordine effettuato da un dipendente ha i seguenti attributi:</p>
+    <ul>
+      <li>Momento dell'ordinazione</li>
+      <li>Totale transizione</li>
+    </ul>
+    <p>Inoltre:</p>
+    <ul>
+      <li>Un ordine può essere inoltre destinato ad un solo fornitore.</li>
+      <li>
+        In un determinato momento solo un ordine potrà essere effettuato da un
+        singolo dipendente.
+      </li>
+    </ul>
+    <h2>Fornitori</h2>
+    <p>Ogni fornitore ha i seguenti attributi:</p>
+    <ul>
+      <li>Partita IVA (univoca)</li>
+      <li>Ragione sociale</li>
+      <li>email</li>
+    </ul>
+    <h2>Associazione Dipendente-Indirizzo</h2>
+    <p>Ogni dipendente dispone di un indirizzo univoco</p>
+    <h2>Associazione Cliente-Indirizzi</h2>
+    <p>Ogni cliente ha più indirizzi di spedizione salvati sul database</p>
+    <h2>Associazione Fornitore-Indirizzi</h2>
+    <p>Ogni fornitore ha l'indirizzo della sede</p>
+    <h2>Acquisti cliente</h2>
+    <ul>
+      <li>Ciascun cliente può effettuare da 0 a N ordini.</li>
+      <li>Ciascun ordine è effettuato da uno e un sol cliente.</li>
+      <li>Un ordine contiene da 1 a N prodotti.</li>
+      <li>I prodotti possono essere acquistati da 0 a N volte.</li>
+      <li>
+        Ogni prodotto che compone un ordine ha una quantità determinata
+        associata.
+      </li>
+      <li>Ogni prodotto è inviato a un indirizzo.</li>
+    </ul>
+    <h2>Ordini fornitori da parte dei dipendenti</h2>
+    <ul>
+      <li>Ciascun dipendente può effettuare da 0 a N ordini.</li>
+      <li>Ciascun ordine è effettuato da uno e un sol dipendente.</li>
+      <li>Un ordine contiene da 1 a N prodotti.</li>
+      <li>I prodotti possono essere acquistati da 0 a N volte.</li>
+      <li>
+        Ogni prodotto che compone un ordine ha una quantità determinata
+        associata.
+      </li>
+      <li>Ogni fornitore può avere a suo carico da 0 a N ordini.</li>
+      <li>Ogni ordine è a carico di uno e un solo fornitore.</li>
+    </ul>
+    <h2>Recensioni</h2>
+    <ul>
+      <li>Ogni utente può recensire da 0 a N giochi.</li>
+      <li>Ogni utente può recensire un gioco massimo una volta.</li>
+      <li>Ogni prodotto può essere recensito da 0 a N volte.</li>
+      <li>
+        La recensione è composta da titolo (summary), descrizione e voto
+        (rating).
+      </li>
+    </ul>
+    <h2>Compatibilità console</h2>
+    <ul>
+      <li>
+        Ogni gioco è stato concepito per (&quot;comaptibile con&quot;) una sola
+        console oppure per PC (0 console).
+      </li>
+      <li>
+        Una console può essere compatibile con uno o più giochi in vendita,
+        oppure con nessuno.
+      </li>
+    </ul>
+    <img src="./images/er.jpg" alt="ER" />
+  </body>
+</html>
