@@ -116,3 +116,4 @@ function get_total_amount(array $products_with_quantity, PaymentMethod|null $pay
 
     return $total_amount;
 }
+?>

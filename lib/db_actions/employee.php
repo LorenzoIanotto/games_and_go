@@ -55,3 +55,4 @@ function insert_employee(
     $conn->commit();
     return $user_id;
 }
+?>

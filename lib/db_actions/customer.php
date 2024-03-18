@@ -106,3 +106,4 @@ function add_points_to_customer(int $customer_id, int $points): bool {
 
     return true;
 }
+?>

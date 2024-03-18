@@ -17,3 +17,4 @@ function get_product_quantity(int $product_id): int|null {
 
     return intval($row["quantity"]);
 }
+?>

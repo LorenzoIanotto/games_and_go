@@ -31,3 +31,4 @@ function insert_admin(
     $conn->commit();
     return $user_id;
 }
+?>

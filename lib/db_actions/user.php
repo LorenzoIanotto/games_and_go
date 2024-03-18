@@ -106,3 +106,4 @@ function delete_user(int $user_id): bool {
     $conn->commit();
     return true;
 }
+?>

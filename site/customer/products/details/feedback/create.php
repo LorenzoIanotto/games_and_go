@@ -29,3 +29,4 @@ $res = insert_user_feedback($summary, $description, $rating, get_user_id(), $pro
 if (!$res) die("Errore");
 
 header("Location: /site/customer/products/details/?product_id=".$product_id);
+?>

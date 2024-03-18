@@ -28,3 +28,4 @@ function insert_vendor(VatNumber $vat, string $business_name, string $email, int
 
     return $conn->insert_id;
 }
+?>

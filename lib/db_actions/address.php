@@ -80,3 +80,4 @@ function insert_address(int $house_number, string $street, string $city, int $po
 
     return intval($address_id);
 }
+?>

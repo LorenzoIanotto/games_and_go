@@ -87,3 +87,4 @@ function protect_page(UserRole $role): void {
 
     if (!$row) redirect();
 }
+?>

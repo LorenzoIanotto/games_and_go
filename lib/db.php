@@ -11,3 +11,4 @@ class DatabaseConnection {
         return self::$connection;
     }
 }
+?>

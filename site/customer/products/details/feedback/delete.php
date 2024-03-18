@@ -19,3 +19,4 @@ $res = delete_user_feedback(get_user_id(), $product_id);
 if (!$res) die("Errore");
 
 header("Location: /site/customer/products/details/?product_id=".$product_id);
+?>

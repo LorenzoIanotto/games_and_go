@@ -49,3 +49,4 @@ function insert_employee_order(int $employee_id, int $vendor_id, string $total_a
     $conn->commit();
     return true;
 }
+?>
